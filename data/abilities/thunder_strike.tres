@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="AbilityData" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://data/abilities/ability_data.gd" id="1"]
+
+[resource]
+script = ExtResource("1")
+ability_id = "thunder_strike"
+ability_name = "Thunder Strike"
+description = "Calls down a bolt of lightning on the foe."
+element = "lightning"
+power = 60
+mp_cost = 10
+accuracy = 0.9
+is_physical = false
+target_type = "single_enemy"

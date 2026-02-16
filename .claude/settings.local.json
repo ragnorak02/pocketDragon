@@ -1,0 +1,13 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(where:*)",
+      "WebSearch",
+      "WebFetch(domain:docs.godotengine.org)",
+      "Bash(\"/c/Users/nick/Downloads/Godot_v4.6-stable_win64.exe/Godot_v4.6-stable_win64_console.exe\" --headless --import)",
+      "Bash(git init:*)",
+      "Bash(git remote add:*)",
+      "Bash(git add:*)"
+    ]
+  }
+}

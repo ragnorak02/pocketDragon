@@ -1,0 +1,29 @@
+[gd_scene load_steps=3 format=3 uid="uid://enemy_base_scene"]
+
+[ext_resource type="Script" path="res://entities/enemies/enemy_base.gd" id="1_enemy"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_col"]
+radius = 0.35
+height = 1.2
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_detect"]
+radius = 5.0
+
+[node name="EnemyBase" type="CharacterBody3D"]
+collision_layer = 2
+collision_mask = 5
+script = ExtResource("1_enemy")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.6, 0)
+shape = SubResource("CapsuleShape3D_col")
+
+[node name="Model" type="Node3D" parent="."]
+
+[node name="DetectionArea" type="Area3D" parent="."]
+collision_layer = 0
+collision_mask = 1
+monitorable = false
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="DetectionArea"]
+shape = SubResource("SphereShape3D_detect")

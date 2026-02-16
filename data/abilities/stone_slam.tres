@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="AbilityData" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://data/abilities/ability_data.gd" id="1"]
+
+[resource]
+script = ExtResource("1")
+ability_id = "stone_slam"
+ability_name = "Stone Slam"
+description = "Slams the ground, sending a shockwave of stone."
+element = "earth"
+power = 50
+mp_cost = 7
+accuracy = 1.0
+is_physical = true
+target_type = "single_enemy"

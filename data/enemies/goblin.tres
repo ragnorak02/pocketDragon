@@ -1,0 +1,22 @@
+[gd_resource type="Resource" script_class="EnemyData" load_steps=4 format=3]
+
+[ext_resource type="Script" path="res://data/enemies/enemy_data.gd" id="1"]
+[ext_resource type="Resource" path="res://data/abilities/tackle.tres" id="2"]
+[ext_resource type="Resource" path="res://data/abilities/poison_spit.tres" id="3"]
+
+[resource]
+script = ExtResource("1")
+enemy_id = "goblin"
+display_name = "Goblin"
+description = "A cunning little creature. Fights dirty and never alone for long."
+element = "neutral"
+max_hp = 60
+max_mp = 15
+attack = 10
+defense = 7
+agi = 11
+abilities = [ExtResource("2"), ExtResource("3")]
+xp_reward = 35
+color_primary = Color(0.4, 0.6, 0.2, 1)
+color_secondary = Color(0.3, 0.35, 0.15, 1)
+model_scale = 0.9

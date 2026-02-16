@@ -1,0 +1,59 @@
+[gd_scene load_steps=3 format=3 uid="uid://starter_select_scene"]
+
+[ext_resource type="Script" path="res://scenes/starter_selection/starter_selection.gd" id="1_starter"]
+[ext_resource type="Theme" path="res://ui/theme/fantasy_theme.tres" id="2_theme"]
+
+[node name="StarterSelection" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("2_theme")
+script = ExtResource("1_starter")
+
+[node name="Background" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color(0.05, 0.03, 0.1, 1)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 40.0
+offset_top = 30.0
+offset_right = -40.0
+offset_bottom = -30.0
+theme_override_constants/separation = 20
+
+[node name="TitleLabel" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.85, 0.65, 1, 1)
+theme_override_font_sizes/font_size = 36
+text = "Choose Your Dragon"
+horizontal_alignment = 1
+
+[node name="DescriptionLabel" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.6, 0.55, 0.7, 0.8)
+theme_override_font_sizes/font_size = 16
+text = "Select a dragon companion to begin your journey."
+horizontal_alignment = 1
+
+[node name="CardsContainer" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+alignment = 1
+theme_override_constants/separation = 20
+
+[node name="ConfirmButton" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+custom_minimum_size = Vector2(300, 50)
+size_flags_horizontal = 4
+text = "Select a Dragon"
+disabled = true
