@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pocket Dragon — Project Status</title>
+<style>
+  :root {
+    --bg: #0d0b14;
+    --surface: #16132a;
+    --border: #2e2752;
+    --text: #c8c4d8;
+    --muted: #7a7494;
+    --accent: #a87cff;
+    --green: #4ade80;
+    --yellow: #facc15;
+    --red: #f87171;
+    --blue: #60a5fa;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Segoe UI', system-ui, sans-serif; background: var(--bg); color: var(--text); padding: 2rem; max-width: 960px; margin: 0 auto; }
+  h1 { color: var(--accent); margin-bottom: 0.25rem; }
+  .subtitle { color: var(--muted); margin-bottom: 2rem; font-size: 0.9rem; }
+  .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 2rem; }
+  .card { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 1.25rem; }
+  .card h2 { font-size: 1rem; color: var(--accent); margin-bottom: 0.75rem; text-transform: uppercase; letter-spacing: 0.05em; }
+  .card.full { grid-column: 1 / -1; }
+  .progress-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem; }
+  .progress-row span { font-size: 0.85rem; }
+  .bar { height: 8px; background: #1a1730; border-radius: 4px; overflow: hidden; flex: 1; margin: 0 0.75rem; }
+  .bar-fill { height: 100%; border-radius: 4px; transition: width 0.3s; }
+  .bar-fill.green { background: var(--green); }
+  .bar-fill.yellow { background: var(--yellow); }
+  .bar-fill.red { background: var(--red); }
+  .bar-fill.blue { background: var(--blue); }
+  .status-badge { display: inline-block; padding: 2px 8px; border-radius: 4px; font-size: 0.75rem; font-weight: 600; }
+  .badge-done { background: #16382a; color: var(--green); }
+  .badge-wip { background: #352a10; color: var(--yellow); }
+  .badge-todo { background: #1a1730; color: var(--muted); }
+  .badge-blocked { background: #3a1620; color: var(--red); }
+  table { width: 100%; border-collapse: collapse; font-size: 0.85rem; }
+  th { text-align: left; color: var(--muted); font-weight: 500; padding: 0.5rem 0.75rem; border-bottom: 1px solid var(--border); }
+  td { padding: 0.5rem 0.75rem; border-bottom: 1px solid #1a1730; }
+  .timestamp { text-align: center; color: var(--muted); font-size: 0.75rem; margin-top: 2rem; }
+</style>
+</head>
+<body>
+
+<h1>Pocket Dragon</h1>
+<p class="subtitle">Dragon League v0.1 — Project Status Dashboard</p>
+
+<div class="grid">
+
+  <div class="card">
+    <h2>Overall Progress</h2>
+    <div class="progress-row">
+      <span>Core Systems</span>
+      <div class="bar"><div class="bar-fill yellow" style="width:45%"></div></div>
+      <span>45%</span>
+    </div>
+    <div class="progress-row">
+      <span>Content</span>
+      <div class="bar"><div class="bar-fill red" style="width:15%"></div></div>
+      <span>15%</span>
+    </div>
+    <div class="progress-row">
+      <span>Art / Audio</span>
+      <div class="bar"><div class="bar-fill red" style="width:5%"></div></div>
+      <span>5%</span>
+    </div>
+    <div class="progress-row">
+      <span>Polish / QA</span>
+      <div class="bar"><div class="bar-fill red" style="width:0%"></div></div>
+      <span>0%</span>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>Quick Stats</h2>
+    <table>
+      <tr><td>GDScript files</td><td><strong>28</strong></td></tr>
+      <tr><td>Scenes (.tscn)</td><td><strong>8</strong></td></tr>
+      <tr><td>Resources (.tres)</td><td><strong>16</strong></td></tr>
+      <tr><td>Dragon species</td><td><strong>3</strong></td></tr>
+      <tr><td>Abilities</td><td><strong>8</strong></td></tr>
+      <tr><td>Enemy types</td><td><strong>2</strong></td></tr>
+      <tr><td>Elements</td><td><strong>5</strong></td></tr>
+      <tr><td>Test coverage</td><td><strong>0%</strong></td></tr>
+    </table>
+  </div>
+
+  <div class="card full">
+    <h2>System Status</h2>
+    <table>
+      <tr>
+        <th>System</th>
+        <th>Status</th>
+        <th>Notes</th>
+      </tr>
+      <tr>
+        <td>Game State Machine</td>
+        <td><span class="status-badge badge-done">Done</span></td>
+        <td>6 states, transitions via EventBus</td>
+      </tr>
+      <tr>
+        <td>Scene Transitions</td>
+        <td><span class="status-badge badge-done">Done</span></td>
+        <td>Main scene swaps child scenes</td>
+      </tr>
+      <tr>
+        <td>Player Movement</td>
+        <td><span class="status-badge badge-done">Done</span></td>
+        <td>8-dir isometric with 45-deg rotation</td>
+      </tr>
+      <tr>
+        <td>Starter Selection</td>
+        <td><span class="status-badge badge-done">Done</span></td>
+        <td>Pick 1 of 3, gives starter gems</td>
+      </tr>
+      <tr>
+        <td>Turn-Based Battle</td>
+        <td><span class="status-badge badge-wip">WIP</span></td>
+        <td>Core loop works; needs status effects, items</td>
+      </tr>
+      <tr>
+        <td>Capture System</td>
+        <td><span class="status-badge badge-wip">WIP</span></td>
+        <td>Probability-based; no capture animation</td>
+      </tr>
+      <tr>
+        <td>Type Effectiveness</td>
+        <td><span class="status-badge badge-done">Done</span></td>
+        <td>5 elements, full chart</td>
+      </tr>
+      <tr>
+        <td>Party Management</td>
+        <td><span class="status-badge badge-done">Done</span></td>
+        <td>Add/remove/swap, collection bonus</td>
+      </tr>
+      <tr>
+        <td>Battle HUD</td>
+        <td><span class="status-badge badge-wip">WIP</span></td>
+        <td>Functional but hardcoded positions, no animations</td>
+      </tr>
+      <tr>
+        <td>Overworld Spawns</td>
+        <td><span class="status-badge badge-wip">WIP</span></td>
+        <td>Hardcoded Vector3 positions, no map system</td>
+      </tr>
+      <tr>
+        <td>Save / Load</td>
+        <td><span class="status-badge badge-wip">WIP</span></td>
+        <td>Serialization exists, no file I/O</td>
+      </tr>
+      <tr>
+        <td>Bestiary</td>
+        <td><span class="status-badge badge-wip">WIP</span></td>
+        <td>UI scaffold, placeholder text</td>
+      </tr>
+      <tr>
+        <td>Debug Overlay</td>
+        <td><span class="status-badge badge-done">Done</span></td>
+        <td>F3 toggle, shows state + FPS</td>
+      </tr>
+      <tr>
+        <td>3D Art / Models</td>
+        <td><span class="status-badge badge-todo">Todo</span></td>
+        <td>Using CSG primitives as placeholders</td>
+      </tr>
+      <tr>
+        <td>Audio (SFX + Music)</td>
+        <td><span class="status-badge badge-todo">Todo</span></td>
+        <td>No audio files or audio manager</td>
+      </tr>
+      <tr>
+        <td>Dialog / NPC System</td>
+        <td><span class="status-badge badge-todo">Todo</span></td>
+        <td>Signal exists, no implementation</td>
+      </tr>
+      <tr>
+        <td>Cutscene System</td>
+        <td><span class="status-badge badge-todo">Todo</span></td>
+        <td>Game state exists, no implementation</td>
+      </tr>
+      <tr>
+        <td>Test Suite</td>
+        <td><span class="status-badge badge-todo">Todo</span></td>
+        <td>No framework installed, see test_plan.md</td>
+      </tr>
+    </table>
+  </div>
+
+</div>
+
+<p class="timestamp">Auto-generated by project intelligence setup — Update this file as systems evolve</p>
+
+</body>
+</html>

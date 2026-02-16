@@ -1,12 +1,59 @@
-# Godot 4+ specific ignores
-.godot/
+# ============================================
+# Pocket Dragon .gitignore
+# ============================================
 
-# Godot-specific ignores
+# --- Godot 4+ ---
+.godot/
+.import/
 *.translation
 
-# Imported textures, audio, etc.
-.import/
+# --- Secrets & Credentials (NEVER commit) ---
+.env
+.env.*
+*.key
+*.pem
+*.p12
+*.pfx
+*.jks
+*.keystore
+credentials.json
+service_account.json
+secrets.yaml
+secrets.yml
 
-# OS generated
+# --- Build / Export ---
+build/
+dist/
+export/
+*.exe
+*.x86_64
+*.apk
+*.aab
+
+# --- OS Generated ---
 .DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
 Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+
+# --- Editors / IDEs ---
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# --- Node / Web (if any tooling is added) ---
+node_modules/
+package-lock.json
+yarn.lock
+
+# --- Misc ---
+*.log
+*.tmp
+*.bak
