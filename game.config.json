@@ -1,0 +1,16 @@
+{
+	"id": "pocketdragon",
+	"title": "Dragon League",
+	"engine": "godot",
+	"engineVersion": "4.4",
+	"genre": "Dragon-battling RPG",
+	"entryPoint": "project.godot",
+	"launchCommand": "godot --path .",
+	"testCommand": "tests/run-tests.bat",
+	"metadata": {
+		"lastGameplayUpdate": "",
+		"lastArtUpdate": "",
+		"buildVersion": "0.1.0",
+		"progressPercent": 15
+	}
+}
