@@ -9,7 +9,11 @@
       "Bash(git remote add:*)",
       "Bash(git add:*)",
       "Bash(git commit:*)",
-      "Bash(git push:*)"
+      "Bash(git push:*)",
+      "Bash(ls:*)",
+      "Bash(node -e:*)",
+      "Bash(\"C:\\\\Users\\\\nick\\\\Downloads\\\\Godot_v4.6-stable_win64.exe\\\\Godot_v4.6-stable_win64.exe\" --headless --path \"Z:\\\\Development\\\\Games\\\\pocketDragon\" --script res://tests/run_tests.gd)",
+      "Bash(\"Z:\\\\Development\\\\Games\\\\pocketDragon\\\\tests\\\\run-tests.bat\")"
     ]
   }
 }

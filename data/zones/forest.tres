@@ -1,0 +1,106 @@
+[gd_resource type="Resource" script_class="ZoneData" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://data/zones/zone_data.gd" id="1"]
+
+[resource]
+script = ExtResource("1")
+zone_id = "forest"
+zone_name = "Dark Forest"
+ground_size = Vector3(60, 0.5, 60)
+ground_color = Color(0.12, 0.22, 0.1, 1)
+sky_color = Color(0.2, 0.25, 0.35, 1)
+ambient_color = Color(0.2, 0.25, 0.3, 1)
+ambient_energy = 0.35
+light_color = Color(0.7, 0.8, 0.6, 1)
+light_energy = 0.7
+fog_color = Color(0.15, 0.2, 0.15, 1)
+fog_density = 0.008
+enemy_spawns = [{
+"data_path": "res://data/enemies/goblin.tres",
+"position": Vector3(6, 0, 8)
+}, {
+"data_path": "res://data/enemies/goblin.tres",
+"position": Vector3(-8, 0, 5)
+}, {
+"data_path": "res://data/enemies/goblin.tres",
+"position": Vector3(10, 0, -6)
+}, {
+"data_path": "res://data/enemies/slime.tres",
+"position": Vector3(-4, 0, -10)
+}, {
+"data_path": "res://data/enemies/goblin.tres",
+"position": Vector3(14, 0, 12)
+}, {
+"data_path": "res://data/enemies/goblin.tres",
+"position": Vector3(-12, 0, -5)
+}]
+dragon_spawns = [{
+"data_path": "res://data/dragons/storm_wyvern.tres",
+"position": Vector3(-18, 0, 16)
+}]
+npc_spawns = [{
+"data_path": "res://data/npcs/forest_scout.tres",
+"position": Vector3(-2, 0, 3)
+}]
+portals = [{
+"target_zone_path": "res://data/zones/meadow.tres",
+"position": Vector3(-28, 0, 0),
+"label": "Sunlit Meadow"
+}]
+decorations = [{
+"type": "tree",
+"position": Vector3(-6, 0, 2),
+"scale": 1.3,
+"color": Color(0.08, 0.3, 0.08, 1)
+}, {
+"type": "tree",
+"position": Vector3(8, 0, -4),
+"scale": 1.5,
+"color": Color(0.06, 0.25, 0.06, 1)
+}, {
+"type": "tree",
+"position": Vector3(-12, 0, 10),
+"scale": 1.1,
+"color": Color(0.1, 0.35, 0.1, 1)
+}, {
+"type": "tree",
+"position": Vector3(4, 0, 14),
+"scale": 1.4,
+"color": Color(0.05, 0.22, 0.05, 1)
+}, {
+"type": "tree",
+"position": Vector3(16, 0, 2),
+"scale": 1.6,
+"color": Color(0.07, 0.28, 0.07, 1)
+}, {
+"type": "tree",
+"position": Vector3(-18, 0, -8),
+"scale": 1.2,
+"color": Color(0.09, 0.32, 0.09, 1)
+}, {
+"type": "tree",
+"position": Vector3(0, 0, -14),
+"scale": 1.0,
+"color": Color(0.06, 0.24, 0.06, 1)
+}, {
+"type": "tree",
+"position": Vector3(-15, 0, -2),
+"scale": 1.3,
+"color": Color(0.08, 0.3, 0.08, 1)
+}, {
+"type": "tree",
+"position": Vector3(12, 0, 8),
+"scale": 1.1,
+"color": Color(0.07, 0.26, 0.07, 1)
+}, {
+"type": "rock",
+"position": Vector3(3, 0, -8),
+"scale": 0.7,
+"color": Color(0.3, 0.28, 0.25, 1)
+}, {
+"type": "rock",
+"position": Vector3(-9, 0, 7),
+"scale": 1.1,
+"color": Color(0.25, 0.23, 0.2, 1)
+}]
+default_spawn = Vector3(0, 1, 0)

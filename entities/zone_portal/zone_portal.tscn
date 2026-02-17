@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://zone_portal_scene"]
+
+[ext_resource type="Script" path="res://entities/zone_portal/zone_portal.gd" id="1_portal"]
+
+[node name="ZonePortal" type="Area3D"]
+script = ExtResource("1_portal")

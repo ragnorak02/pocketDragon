@@ -1,0 +1,94 @@
+[gd_resource type="Resource" script_class="ZoneData" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://data/zones/zone_data.gd" id="1"]
+
+[resource]
+script = ExtResource("1")
+zone_id = "cave"
+zone_name = "Crystal Cave"
+ground_size = Vector3(50, 0.5, 50)
+ground_color = Color(0.15, 0.12, 0.18, 1)
+sky_color = Color(0.05, 0.05, 0.1, 1)
+ambient_color = Color(0.2, 0.15, 0.3, 1)
+ambient_energy = 0.25
+light_color = Color(0.6, 0.5, 0.8, 1)
+light_energy = 0.5
+fog_color = Color(0.1, 0.08, 0.15, 1)
+fog_density = 0.015
+enemy_spawns = [{
+"data_path": "res://data/enemies/goblin.tres",
+"position": Vector3(5, 0, 6)
+}, {
+"data_path": "res://data/enemies/goblin.tres",
+"position": Vector3(-7, 0, 4)
+}, {
+"data_path": "res://data/enemies/slime.tres",
+"position": Vector3(10, 0, -8)
+}, {
+"data_path": "res://data/enemies/goblin.tres",
+"position": Vector3(-10, 0, -6)
+}, {
+"data_path": "res://data/enemies/goblin.tres",
+"position": Vector3(3, 0, -14)
+}, {
+"data_path": "res://data/enemies/slime.tres",
+"position": Vector3(-14, 0, 10)
+}, {
+"data_path": "res://data/enemies/goblin.tres",
+"position": Vector3(12, 0, 12)
+}]
+dragon_spawns = [{
+"data_path": "res://data/dragons/stone_wyrm.tres",
+"position": Vector3(16, 0, -14)
+}]
+npc_spawns = [{
+"data_path": "res://data/npcs/cave_hermit.tres",
+"position": Vector3(-3, 0, -2)
+}]
+portals = [{
+"target_zone_path": "res://data/zones/meadow.tres",
+"position": Vector3(23, 0, 0),
+"label": "Sunlit Meadow"
+}]
+decorations = [{
+"type": "rock",
+"position": Vector3(8, 0, 3),
+"scale": 1.5,
+"color": Color(0.3, 0.2, 0.4, 1)
+}, {
+"type": "rock",
+"position": Vector3(-6, 0, 8),
+"scale": 1.8,
+"color": Color(0.25, 0.18, 0.35, 1)
+}, {
+"type": "rock",
+"position": Vector3(12, 0, -5),
+"scale": 1.2,
+"color": Color(0.35, 0.25, 0.45, 1)
+}, {
+"type": "rock",
+"position": Vector3(-15, 0, -10),
+"scale": 2.0,
+"color": Color(0.2, 0.15, 0.3, 1)
+}, {
+"type": "rock",
+"position": Vector3(0, 0, 15),
+"scale": 1.6,
+"color": Color(0.28, 0.2, 0.38, 1)
+}, {
+"type": "rock",
+"position": Vector3(-10, 0, 14),
+"scale": 1.3,
+"color": Color(0.22, 0.16, 0.32, 1)
+}, {
+"type": "rock",
+"position": Vector3(16, 0, 10),
+"scale": 1.4,
+"color": Color(0.32, 0.22, 0.42, 1)
+}, {
+"type": "rock",
+"position": Vector3(5, 0, -18),
+"scale": 1.7,
+"color": Color(0.26, 0.19, 0.36, 1)
+}]
+default_spawn = Vector3(0, 1, 0)

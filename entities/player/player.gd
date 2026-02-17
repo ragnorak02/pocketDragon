@@ -6,11 +6,25 @@ extends CharacterBody3D
 
 var input_dir := Vector2.ZERO
 var _iso_rotation := deg_to_rad(-45.0)  # 45deg rotation for isometric alignment
+var _nearby_npc: Node3D = null
 
 @onready var model: Node3D = $Model
 
 func _ready() -> void:
 	add_to_group("player")
+	EventBus.npc_in_range.connect(_on_npc_in_range)
+
+func _input(event: InputEvent) -> void:
+	if event.is_action_pressed("interact") and GameManager.is_gameplay_active():
+		if _nearby_npc and is_instance_valid(_nearby_npc) and _nearby_npc.has_method("interact"):
+			_nearby_npc.interact()
+			get_viewport().set_input_as_handled()
+
+func _on_npc_in_range(npc_node: Node3D, in_range: bool) -> void:
+	if in_range:
+		_nearby_npc = npc_node
+	elif npc_node == _nearby_npc:
+		_nearby_npc = null
 
 func _physics_process(delta: float) -> void:
 	if not GameManager.is_gameplay_active():

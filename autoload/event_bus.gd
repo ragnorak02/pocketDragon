@@ -34,6 +34,11 @@ signal dragon_swapped_in_battle(dragon_instance)
 # Overworld
 signal player_entered_area(area_name: String)
 signal enemy_spotted_player(enemy_node: Node3D)
+signal zone_transition_requested(zone_path: String, spawn_position: Vector3)
+signal zone_loaded(zone_id: String)
+signal npc_in_range(npc_node: Node3D, in_range: bool)
+signal dialog_started(speaker: String, lines: PackedStringArray)
+signal dialog_finished()
 
 # UI
 signal menu_opened(menu_name: String)

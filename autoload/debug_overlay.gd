@@ -43,12 +43,25 @@ func _process(_delta: float) -> void:
 	var battle_state: String = BattleManager.BattleState.keys()[BattleManager.state] if BattleManager.state != BattleManager.BattleState.INACTIVE else "---"
 	var party_count := PartyManager.party.size()
 
+	var zone_name := "---"
+	var overworld := get_tree().get_first_node_in_group("overworld") if get_tree() else null
+	if overworld == null:
+		# Try finding by node path in scene tree
+		var scene_container = get_tree().root.get_node_or_null("Main/SceneContainer")
+		if scene_container and scene_container.get_child_count() > 0:
+			var child = scene_container.get_child(0)
+			if child.has_method("_load_zone") and child.get("current_zone"):
+				overworld = child
+	if overworld and overworld.get("current_zone") and overworld.current_zone:
+		zone_name = overworld.current_zone.zone_name
+
 	label.text = "Dragon League v0.1\n"
 	label.text += "Godot %s | %s | %s\n" % [ver_str, renderer, OS.get_name()]
 	label.text += "FPS: %d\n" % fps
 	label.text += "State: %s\n" % state_name
 	label.text += "Battle: %s\n" % battle_state
-	label.text += "Party: %d/5" % party_count
+	label.text += "Party: %d/5\n" % party_count
+	label.text += "Zone: %s" % zone_name
 
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("debug_toggle"):
