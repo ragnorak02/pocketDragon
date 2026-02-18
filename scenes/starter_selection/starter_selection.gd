@@ -142,43 +142,8 @@ func _build_card(data: DragonData, index: int) -> PanelContainer:
 	return card
 
 func _create_dragon_preview(data: DragonData) -> Node3D:
-	var root := Node3D.new()
-
-	# Body
-	var body := CSGSphere3D.new()
-	body.radius = 0.6 * data.model_scale
-	body.transform.origin = Vector3(0, 0.6, 0)
-	var body_mat := StandardMaterial3D.new()
-	body_mat.albedo_color = data.color_primary
-	body.material = body_mat
-	root.add_child(body)
-
-	# Head
-	var head := CSGSphere3D.new()
-	head.radius = 0.35 * data.model_scale
-	head.transform.origin = Vector3(0.4, 1.1, 0) * data.model_scale
-	head.material = body_mat
-	root.add_child(head)
-
-	# Wings
-	var wing_mat := StandardMaterial3D.new()
-	wing_mat.albedo_color = data.color_secondary
-	for side in [-1, 1]:
-		var wing := CSGBox3D.new()
-		wing.size = Vector3(0.08, 0.5, 0.8) * data.model_scale
-		wing.transform.origin = Vector3(0, 0.9, 0.5 * side) * data.model_scale
-		wing.rotation_degrees = Vector3(0, 0, -20 * side)
-		wing.material = wing_mat
-		root.add_child(wing)
-
-	# Tail
-	var tail := CSGCylinder3D.new()
-	tail.radius = 0.1 * data.model_scale
-	tail.height = 0.8 * data.model_scale
-	tail.transform.origin = Vector3(-0.6, 0.4, 0) * data.model_scale
-	tail.rotation_degrees = Vector3(0, 0, 70)
-	tail.material = body_mat
-	root.add_child(tail)
+	var root := ModelFactory.build_dragon_model(data)
+	ModelFactory.add_dragon_aura(root, data.color_primary, data.model_scale)
 
 	# Rotate slowly
 	var rotate_script := GDScript.new()

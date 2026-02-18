@@ -99,61 +99,11 @@ func _build_model() -> void:
 	for child in model.get_children():
 		child.queue_free()
 
-	var mat := StandardMaterial3D.new()
-	mat.albedo_color = enemy_data.color_primary
-	var mat2 := StandardMaterial3D.new()
-	mat2.albedo_color = enemy_data.color_secondary
+	var built := ModelFactory.build_enemy_model(enemy_data)
+	for child in built.get_children():
+		built.remove_child(child)
+		model.add_child(child)
+	built.queue_free()
 
-	var scale_val: float = enemy_data.model_scale
-
-	if enemy_data.enemy_id == "slime":
-		# Slime: squished sphere
-		var body := CSGSphere3D.new()
-		body.radius = 0.5 * scale_val
-		body.transform.origin = Vector3(0, 0.35, 0)
-		body.transform = body.transform.scaled_local(Vector3(1.0, 0.7, 1.0))
-		body.material = mat
-		model.add_child(body)
-		# Eyes
-		for side in [-1, 1]:
-			var eye := CSGSphere3D.new()
-			eye.radius = 0.08
-			eye.transform.origin = Vector3(0.15 * side, 0.45, 0.3) * scale_val
-			eye.material = mat2
-			model.add_child(eye)
-	else:
-		# Goblin / generic: body + head
-		var body := CSGCylinder3D.new()
-		body.radius = 0.25 * scale_val
-		body.height = 0.7 * scale_val
-		body.transform.origin = Vector3(0, 0.35, 0)
-		body.material = mat
-		model.add_child(body)
-
-		var head := CSGSphere3D.new()
-		head.radius = 0.2 * scale_val
-		head.transform.origin = Vector3(0, 0.85 * scale_val, 0)
-		head.material = mat
-		model.add_child(head)
-
-		# Ears (for goblin)
-		for side in [-1, 1]:
-			var ear := CSGBox3D.new()
-			ear.size = Vector3(0.05, 0.15, 0.08) * scale_val
-			ear.transform.origin = Vector3(0.18 * side, 0.95, 0) * scale_val
-			ear.rotation_degrees = Vector3(0, 0, -20 * side)
-			ear.material = mat2
-			model.add_child(ear)
-
-		# Eyes
-		for side in [-1, 1]:
-			var eye := CSGSphere3D.new()
-			eye.radius = 0.04 * scale_val
-			eye.transform.origin = Vector3(0.08 * side, 0.88, 0.15) * scale_val
-			var eye_mat := StandardMaterial3D.new()
-			eye_mat.albedo_color = Color(0.9, 0.2, 0.1)
-			eye_mat.emission_enabled = true
-			eye_mat.emission = Color(0.8, 0.1, 0.05)
-			eye_mat.emission_energy_multiplier = 0.5
-			eye.material = eye_mat
-			model.add_child(eye)
+	# Add idle animation
+	ModelFactory.add_idle_bob(model, 0.03, 2.5)

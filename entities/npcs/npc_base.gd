@@ -46,51 +46,11 @@ func _build_model() -> void:
 	for child in model.get_children():
 		child.queue_free()
 
-	var mat := StandardMaterial3D.new()
-	mat.albedo_color = npc_data.color_primary
-	var mat2 := StandardMaterial3D.new()
-	mat2.albedo_color = npc_data.color_secondary
+	var built := ModelFactory.build_npc_model(npc_data, true)
+	for child in built.get_children():
+		built.remove_child(child)
+		model.add_child(child)
+	built.queue_free()
 
-	var s: float = npc_data.model_scale
-
-	# Body (robe-like cylinder)
-	var body := CSGCylinder3D.new()
-	body.radius = 0.3 * s
-	body.height = 1.0 * s
-	body.transform.origin = Vector3(0, 0.5 * s, 0)
-	body.material = mat
-	model.add_child(body)
-
-	# Head
-	var head := CSGSphere3D.new()
-	head.radius = 0.22 * s
-	head.transform.origin = Vector3(0, 1.15 * s, 0)
-	head.material = mat2
-	model.add_child(head)
-
-	# Hat / hood (small cone-like shape using a cylinder)
-	var hat := CSGCylinder3D.new()
-	hat.radius = 0.18 * s
-	hat.height = 0.3 * s
-	hat.transform.origin = Vector3(0, 1.4 * s, 0)
-	hat.material = mat
-	model.add_child(hat)
-
-	# Eyes
-	var eye_mat := StandardMaterial3D.new()
-	eye_mat.albedo_color = Color(0.1, 0.1, 0.1)
-	for side in [-1, 1]:
-		var eye := CSGSphere3D.new()
-		eye.radius = 0.035 * s
-		eye.transform.origin = Vector3(0.08 * side * s, 1.18 * s, 0.18 * s)
-		eye.material = eye_mat
-		model.add_child(eye)
-
-	# Name label above head
-	var name_label := Label3D.new()
-	name_label.text = npc_data.display_name
-	name_label.font_size = 24
-	name_label.transform.origin = Vector3(0, 1.8 * s, 0)
-	name_label.billboard = BaseMaterial3D.BILLBOARD_ENABLED
-	name_label.modulate = Color(0.9, 0.85, 0.6, 0.9)
-	model.add_child(name_label)
+	# Add subtle idle sway
+	ModelFactory.add_idle_bob(model, 0.02, 1.5)

@@ -1,20 +1,27 @@
-[gd_scene load_steps=5 format=3 uid="uid://battle_arena_scene"]
+[gd_scene load_steps=7 format=3 uid="uid://battle_arena_scene"]
 
 [ext_resource type="Script" path="res://scenes/battle/battle_arena.gd" id="1_arena"]
 [ext_resource type="Script" path="res://scenes/battle/battle_hud.gd" id="2_hud"]
+[ext_resource type="Shader" path="res://assets/shaders/shader_arena_floor.gdshader" id="3_floor_shader"]
+[ext_resource type="Shader" path="res://assets/shaders/shader_arena_ring.gdshader" id="4_ring_shader"]
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ground"]
-albedo_color = Color(0.15, 0.12, 0.2, 1)
-emission_enabled = true
-emission = Color(0.1, 0.08, 0.15, 1)
-emission_energy_multiplier = 0.2
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ground"]
+shader = ExtResource("3_floor_shader")
+shader_parameter/stone_color = Color(0.15, 0.12, 0.2, 1)
+shader_parameter/stone_color_alt = Color(0.08, 0.06, 0.12, 1)
+shader_parameter/rune_color = Color(0.5, 0.3, 0.8, 1)
+shader_parameter/rune_glow = 1.5
+shader_parameter/rune_speed = 0.5
+shader_parameter/tile_scale = 6.0
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ring"]
-albedo_color = Color(0.4, 0.25, 0.6, 0.5)
-emission_enabled = true
-emission = Color(0.5, 0.3, 0.7, 1)
-emission_energy_multiplier = 0.8
-transparency = 1
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ring"]
+render_priority = 1
+shader = ExtResource("4_ring_shader")
+shader_parameter/ring_color = Color(0.5, 0.3, 0.7, 1)
+shader_parameter/rotation_speed = 0.8
+shader_parameter/glow_strength = 2.0
+shader_parameter/pattern_count = 6.0
+shader_parameter/alpha_val = 0.6
 
 [sub_resource type="Environment" id="Environment_battle"]
 ambient_light_source = 2
@@ -30,13 +37,13 @@ environment = SubResource("Environment_battle")
 [node name="BattleGround" type="CSGBox3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.1, 0)
 size = Vector3(12, 0.2, 8)
-material = SubResource("StandardMaterial3D_ground")
+material = SubResource("ShaderMaterial_ground")
 
 [node name="ArenaRing" type="CSGCylinder3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.02, 0)
 radius = 5.0
 height = 0.02
-material = SubResource("StandardMaterial3D_ring")
+material = SubResource("ShaderMaterial_ring")
 
 [node name="BattleLight" type="DirectionalLight3D" parent="."]
 transform = Transform3D(0.866, -0.354, 0.354, 0, 0.707, 0.707, -0.5, -0.612, 0.612, 0, 10, 0)

@@ -1,7 +1,16 @@
-[gd_scene load_steps=3 format=3 uid="uid://starter_select_scene"]
+[gd_scene load_steps=4 format=3 uid="uid://starter_select_scene"]
 
 [ext_resource type="Script" path="res://scenes/starter_selection/starter_selection.gd" id="1_starter"]
 [ext_resource type="Theme" path="res://ui/theme/fantasy_theme.tres" id="2_theme"]
+[ext_resource type="Shader" path="res://assets/shaders/shader_mist_bg.gdshader" id="3_mist_shader"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_mist"]
+shader = ExtResource("3_mist_shader")
+shader_parameter/bg_color = Color(0.03, 0.02, 0.06, 1)
+shader_parameter/mist_color = Color(0.15, 0.08, 0.25, 1)
+shader_parameter/accent_color = Color(0.4, 0.2, 0.6, 1)
+shader_parameter/mist_speed = 0.15
+shader_parameter/mist_density = 0.4
 
 [node name="StarterSelection" type="Control"]
 layout_mode = 3
@@ -18,7 +27,8 @@ layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-color = Color(0.05, 0.03, 0.1, 1)
+material = SubResource("ShaderMaterial_mist")
+color = Color(1, 1, 1, 1)
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 layout_mode = 1

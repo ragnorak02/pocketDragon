@@ -117,105 +117,14 @@ func _spawn_enemy_model() -> void:
 	add_child(_enemy_model)
 
 func _create_dragon_model(data) -> Node3D:
-	var root := Node3D.new()
-	var mat := StandardMaterial3D.new()
-	mat.albedo_color = data.color_primary
-	mat.emission_enabled = true
-	mat.emission = data.color_primary * 0.2
-	mat.emission_energy_multiplier = 0.3
-
-	var mat2 := StandardMaterial3D.new()
-	mat2.albedo_color = data.color_secondary
-
-	var s: float = data.model_scale * 1.5  # Bigger in battle
-
-	var body := CSGSphere3D.new()
-	body.radius = 0.6 * s
-	body.transform.origin = Vector3(0, 0.6, 0)
-	body.material = mat
-	root.add_child(body)
-
-	var head := CSGSphere3D.new()
-	head.radius = 0.35 * s
-	head.transform.origin = Vector3(0.5, 1.0, 0) * s
-	head.material = mat
-	root.add_child(head)
-
-	for side in [-1, 1]:
-		var wing := CSGBox3D.new()
-		wing.size = Vector3(0.08, 0.7, 1.2) * s
-		wing.transform.origin = Vector3(-0.1, 1.1, 0.7 * side) * s
-		wing.rotation_degrees = Vector3(0, 0, -15 * side)
-		wing.material = mat2
-		root.add_child(wing)
-
-	var tail := CSGCylinder3D.new()
-	tail.radius = 0.12 * s
-	tail.height = 1.2 * s
-	tail.transform.origin = Vector3(-0.8, 0.4, 0) * s
-	tail.rotation_degrees = Vector3(0, 0, 70)
-	tail.material = mat
-	root.add_child(tail)
-
-	var eye_mat := StandardMaterial3D.new()
-	eye_mat.albedo_color = Color(1, 0.9, 0.3)
-	eye_mat.emission_enabled = true
-	eye_mat.emission = Color(1, 0.8, 0.2)
-	eye_mat.emission_energy_multiplier = 2.0
-	for side in [-1, 1]:
-		var eye := CSGSphere3D.new()
-		eye.radius = 0.07 * s
-		eye.transform.origin = Vector3(0.72, 1.1, 0.12 * side) * s
-		eye.material = eye_mat
-		root.add_child(eye)
-
+	var root := ModelFactory.build_dragon_model(data, 1.5)
+	ModelFactory.add_dragon_aura(root, data.color_primary, data.model_scale * 1.5)
+	ModelFactory.add_idle_bob(root, 0.06, 1.8)
 	return root
 
 func _create_enemy_model(data: EnemyData) -> Node3D:
-	var root := Node3D.new()
-	var mat := StandardMaterial3D.new()
-	mat.albedo_color = data.color_primary
-	var s: float = data.model_scale * 1.5
-
-	if data.enemy_id == "slime":
-		var body := CSGSphere3D.new()
-		body.radius = 0.6 * s
-		body.transform.origin = Vector3(0, 0.4, 0)
-		body.transform = body.transform.scaled_local(Vector3(1.0, 0.7, 1.0))
-		body.material = mat
-		root.add_child(body)
-		for side in [-1, 1]:
-			var eye := CSGSphere3D.new()
-			eye.radius = 0.1
-			eye.transform.origin = Vector3(0.2 * side, 0.5, 0.35) * s
-			var eye_mat := StandardMaterial3D.new()
-			eye_mat.albedo_color = data.color_secondary
-			eye.material = eye_mat
-			root.add_child(eye)
-	else:
-		var body := CSGCylinder3D.new()
-		body.radius = 0.3 * s
-		body.height = 0.8 * s
-		body.transform.origin = Vector3(0, 0.4, 0)
-		body.material = mat
-		root.add_child(body)
-
-		var head := CSGSphere3D.new()
-		head.radius = 0.25 * s
-		head.transform.origin = Vector3(0, 0.95 * s, 0)
-		head.material = mat
-		root.add_child(head)
-
-		for side in [-1, 1]:
-			var ear := CSGBox3D.new()
-			ear.size = Vector3(0.06, 0.2, 0.1) * s
-			ear.transform.origin = Vector3(0.22 * side, 1.1, 0) * s
-			ear.rotation_degrees = Vector3(0, 0, -25 * side)
-			var ear_mat := StandardMaterial3D.new()
-			ear_mat.albedo_color = data.color_secondary
-			ear.material = ear_mat
-			root.add_child(ear)
-
+	var root := ModelFactory.build_enemy_model(data, 1.5)
+	ModelFactory.add_idle_bob(root, 0.04, 2.0)
 	return root
 
 func _on_battle_state_changed(_old: StringName, new_state: StringName) -> void:
@@ -242,15 +151,67 @@ func _play_attack_animation(attacker: Node3D, target: Node3D) -> void:
 
 	var tween := create_tween()
 	tween.tween_property(attacker, "global_position", slide_pos, 0.15).set_trans(Tween.TRANS_BACK)
-	tween.tween_callback(_flash_model.bind(target))
+	tween.tween_callback(_on_hit_impact.bind(target))
 	tween.tween_property(attacker, "global_position", original_pos, 0.25).set_trans(Tween.TRANS_CUBIC)
 
-func _flash_model(target_node: Node3D) -> void:
+func _on_hit_impact(target_node: Node3D) -> void:
 	if not is_instance_valid(target_node):
 		return
+	# Scale squash
 	var tween := create_tween()
-	tween.tween_property(target_node, "modulate" if target_node is CanvasItem else "scale", Vector3(1.15, 0.85, 1.15), 0.1)
+	tween.tween_property(target_node, "scale", Vector3(1.15, 0.85, 1.15), 0.1)
 	tween.tween_property(target_node, "scale", Vector3.ONE, 0.15)
+
+	# Spawn impact burst particles
+	_spawn_impact_particles(target_node.global_position + Vector3(0, 0.5, 0))
+
+	# Camera shake
+	_shake_camera(0.2, 0.15)
+
+func _spawn_impact_particles(pos: Vector3) -> void:
+	var particles := CPUParticles3D.new()
+	particles.amount = 12
+	particles.lifetime = 0.4
+	particles.one_shot = true
+	particles.emitting = true
+	particles.explosiveness = 0.9
+	particles.global_position = pos
+
+	particles.direction = Vector3(0, 1, 0)
+	particles.spread = 180.0
+	particles.initial_velocity_min = 2.0
+	particles.initial_velocity_max = 5.0
+	particles.gravity = Vector3(0, -8, 0)
+	particles.scale_amount_min = 0.03
+	particles.scale_amount_max = 0.08
+
+	var gradient := Gradient.new()
+	gradient.set_color(0, Color(1, 0.9, 0.3, 1.0))
+	gradient.add_point(0.3, Color(1, 0.5, 0.1, 0.8))
+	gradient.set_color(1, Color(0.8, 0.2, 0.1, 0.0))
+	var color_ramp := GradientTexture1D.new()
+	color_ramp.gradient = gradient
+	particles.color_ramp = color_ramp
+
+	add_child(particles)
+	# Auto-cleanup after particles finish
+	var timer := get_tree().create_timer(particles.lifetime + 0.5)
+	timer.timeout.connect(particles.queue_free)
+
+func _shake_camera(duration: float, intensity: float) -> void:
+	if not battle_camera:
+		return
+	var original_pos := battle_camera.position
+	var tween := create_tween()
+	var steps := 6
+	for i in steps:
+		var offset := Vector3(
+			randf_range(-intensity, intensity),
+			randf_range(-intensity, intensity),
+			0
+		) * (1.0 - float(i) / float(steps))
+		tween.tween_property(battle_camera, "position", original_pos + offset, duration / float(steps))
+	tween.tween_property(battle_camera, "position", original_pos, duration / float(steps))
 
 func _on_damage_dealt(target_name: String, amount: int, _is_critical: bool) -> void:
 	if not _is_active:

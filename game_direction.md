@@ -60,3 +60,22 @@
 - Audio design (no audio assets yet)
 - Save file persistence (serialization exists, file I/O does not)
 - Cutscene system (state exists, no implementation)
+
+### Graphics Pass V1 — 2026-02-18
+- Replaced 19 primitive/placeholder visuals with improved assets
+- Added toon shading (rim lighting, cel shading) to all entity models
+- Added jelly wobble shader for slime enemies
+- Added procedural terrain shader (noise grass/dirt blend) for overworld ground
+- Added wind sway shader for tree canopies
+- Added procedural rock and cobblestone path shaders
+- Added animated arena floor (glowing runes) and rotating arena ring shaders
+- Added animated dark fantasy backgrounds for main menu and starter selection
+- Added portal energy swirl shader with CPUParticles3D
+- Added dragon element aura particles (CPUParticles3D ring)
+- Added battle impact burst particles and camera shake
+- Added idle bob animations to enemies, NPCs, and battle models
+- Extracted shared ModelFactory utility (DRYed 3x dragon model duplication)
+- Added horns and mouth details to dragon/slime models
+- Animation cycles added for: all entities (idle bob), slime (jelly wobble), trees (wind sway)
+- Techniques used: Shader (11 files), Particle (3 systems), Material, Programmatic
+- Asset stage: placeholder_v1 (swap-ready for final art)

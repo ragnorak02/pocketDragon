@@ -77,10 +77,16 @@ func _apply_environment() -> void:
 	if not current_zone:
 		return
 
-	# Ground
+	# Ground — procedural terrain shader
 	ground.size = current_zone.ground_size
-	var ground_mat := StandardMaterial3D.new()
-	ground_mat.albedo_color = current_zone.ground_color
+	var ground_shader := load("res://assets/shaders/shader_ground.gdshader")
+	var ground_mat := ShaderMaterial.new()
+	ground_mat.shader = ground_shader
+	# Derive shader colors from zone ground color
+	var gc: Color = current_zone.ground_color
+	ground_mat.set_shader_parameter("grass_color", gc)
+	ground_mat.set_shader_parameter("dirt_color", Color(gc).darkened(0.2) + Color(0.1, 0.0, -0.05, 0))
+	ground_mat.set_shader_parameter("dark_grass_color", Color(gc).darkened(0.3))
 	ground.material = ground_mat
 
 	# Environment
@@ -99,8 +105,15 @@ func _spawn_decorations() -> void:
 	if not current_zone:
 		return
 
-	var trunk_mat := StandardMaterial3D.new()
-	trunk_mat.albedo_color = Color(0.35, 0.22, 0.12, 1)
+	var trunk_mat := ModelFactory.make_toon_material(
+		Color(0.35, 0.22, 0.12),
+		Color(0.5, 0.35, 0.2),
+		0.25
+	)
+
+	var wind_shader: Shader = load("res://assets/shaders/shader_wind_sway.gdshader")
+	var rock_shader: Shader = load("res://assets/shaders/shader_rock.gdshader")
+	var path_shader: Shader = load("res://assets/shaders/shader_path.gdshader")
 
 	for deco in current_zone.decorations:
 		var deco_type: String = deco.get("type", "rock")
@@ -120,13 +133,29 @@ func _spawn_decorations() -> void:
 			trunk.material = trunk_mat
 			tree.add_child(trunk)
 
+			# Canopy with wind sway shader
 			var leaves := CSGSphere3D.new()
 			leaves.radius = 1.0 * deco_scale
 			leaves.transform.origin = Vector3(0, 2.5 * deco_scale, 0)
-			var leaf_mat := StandardMaterial3D.new()
-			leaf_mat.albedo_color = color
+			var leaf_mat := ShaderMaterial.new()
+			leaf_mat.shader = wind_shader
+			leaf_mat.set_shader_parameter("base_color", color)
+			leaf_mat.set_shader_parameter("wind_speed", 1.5)
+			leaf_mat.set_shader_parameter("wind_strength", 0.12)
 			leaves.material = leaf_mat
 			tree.add_child(leaves)
+
+			# Lower canopy layer for fullness
+			var leaves2 := CSGSphere3D.new()
+			leaves2.radius = 0.7 * deco_scale
+			leaves2.transform.origin = Vector3(0.3, 2.0 * deco_scale, 0.2)
+			var leaf_mat2 := ShaderMaterial.new()
+			leaf_mat2.shader = wind_shader
+			leaf_mat2.set_shader_parameter("base_color", Color(color).darkened(0.15))
+			leaf_mat2.set_shader_parameter("wind_speed", 1.8)
+			leaf_mat2.set_shader_parameter("wind_strength", 0.1)
+			leaves2.material = leaf_mat2
+			tree.add_child(leaves2)
 
 			decorations_container.add_child(tree)
 
@@ -135,19 +164,25 @@ func _spawn_decorations() -> void:
 			rock.radius = 0.5 * deco_scale
 			rock.transform.origin = pos + Vector3(0, 0.3 * deco_scale, 0)
 			rock.transform = rock.transform.scaled_local(Vector3(1.5, 0.8, 1.2))
-			var rock_mat := StandardMaterial3D.new()
-			rock_mat.albedo_color = color
+			var rock_mat := ShaderMaterial.new()
+			rock_mat.shader = rock_shader
+			rock_mat.set_shader_parameter("color_base", color)
+			rock_mat.set_shader_parameter("color_dark", Color(color).darkened(0.3))
+			rock_mat.set_shader_parameter("color_highlight", Color(color).lightened(0.2))
 			rock.material = rock_mat
 			rock.add_to_group("zone_decoration")
 			decorations_container.add_child(rock)
 
 		elif deco_type == "path":
+			var path_mat := ShaderMaterial.new()
+			path_mat.shader = path_shader
+			path_mat.set_shader_parameter("stone_color", color)
+			path_mat.set_shader_parameter("mortar_color", Color(color).darkened(0.25))
+
 			# Horizontal path
 			var path_h := CSGBox3D.new()
 			path_h.size = Vector3(40, 0.02, 2.5)
 			path_h.transform.origin = pos
-			var path_mat := StandardMaterial3D.new()
-			path_mat.albedo_color = color
 			path_h.material = path_mat
 			path_h.add_to_group("zone_decoration")
 			decorations_container.add_child(path_h)

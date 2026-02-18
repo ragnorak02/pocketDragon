@@ -1,0 +1,78 @@
+{
+	"pass": "graphics_v1",
+	"date": "2026-02-18",
+	"assets": [
+		{
+			"file": "assets/shaders/shader_toon.gdshader",
+			"replaces": "StandardMaterial3D flat colors on all entity CSG nodes",
+			"swap_target": "Final toon/cel shader or PBR materials on real meshes",
+			"dimensions": "N/A (spatial shader)"
+		},
+		{
+			"file": "assets/shaders/shader_jelly.gdshader",
+			"replaces": "StandardMaterial3D on slime CSG body in enemy_base.gd",
+			"swap_target": "Final slime shader with subsurface scattering",
+			"dimensions": "N/A (spatial shader)"
+		},
+		{
+			"file": "assets/shaders/shader_ground.gdshader",
+			"replaces": "Flat color StandardMaterial3D on overworld CSGBox3D ground",
+			"swap_target": "Final terrain shader or textured ground mesh",
+			"dimensions": "N/A (spatial shader)"
+		},
+		{
+			"file": "assets/shaders/shader_arena_floor.gdshader",
+			"replaces": "Flat dark StandardMaterial3D on battle_arena.tscn BattleGround",
+			"swap_target": "Final arena floor with baked rune textures",
+			"dimensions": "N/A (spatial shader)"
+		},
+		{
+			"file": "assets/shaders/shader_arena_ring.gdshader",
+			"replaces": "Translucent StandardMaterial3D on battle_arena.tscn ArenaRing",
+			"swap_target": "Final animated arena ring effect",
+			"dimensions": "N/A (spatial shader)"
+		},
+		{
+			"file": "assets/shaders/shader_portal_energy.gdshader",
+			"replaces": "Translucent StandardMaterial3D on zone_portal.gd Energy sphere",
+			"swap_target": "Final portal energy VFX (shader + particles)",
+			"dimensions": "N/A (spatial shader)"
+		},
+		{
+			"file": "assets/shaders/shader_wind_sway.gdshader",
+			"replaces": "StandardMaterial3D on tree canopy CSGSphere3D in overworld.gd",
+			"swap_target": "Final foliage shader on real tree meshes",
+			"dimensions": "N/A (spatial shader)"
+		},
+		{
+			"file": "assets/shaders/shader_rock.gdshader",
+			"replaces": "StandardMaterial3D on rock CSGSphere3D in overworld.gd",
+			"swap_target": "Final rock shader or textured rock meshes",
+			"dimensions": "N/A (spatial shader)"
+		},
+		{
+			"file": "assets/shaders/shader_path.gdshader",
+			"replaces": "StandardMaterial3D on path CSGBox3D in overworld.gd",
+			"swap_target": "Final cobblestone texture or path mesh",
+			"dimensions": "N/A (spatial shader)"
+		},
+		{
+			"file": "assets/shaders/shader_menu_bg.gdshader",
+			"replaces": "Flat ColorRect in main_menu.tscn Background + empty ParticleDecor",
+			"swap_target": "Final menu background art or shader",
+			"dimensions": "N/A (canvas_item shader)"
+		},
+		{
+			"file": "assets/shaders/shader_mist_bg.gdshader",
+			"replaces": "Flat ColorRect in starter_selection.tscn Background",
+			"swap_target": "Final starter selection background art",
+			"dimensions": "N/A (canvas_item shader)"
+		},
+		{
+			"file": "utils/model_factory.gd",
+			"replaces": "Duplicated CSG model construction in dragon_base.gd, battle_arena.gd, starter_selection.gd, enemy_base.gd, npc_base.gd",
+			"swap_target": "Model factory loading real glTF/OBJ meshes instead of CSG",
+			"dimensions": "N/A (GDScript utility)"
+		}
+	]
+}

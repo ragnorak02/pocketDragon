@@ -81,79 +81,11 @@ func _build_model() -> void:
 	for child in model.get_children():
 		child.queue_free()
 
-	var mat := StandardMaterial3D.new()
-	mat.albedo_color = dragon_data.color_primary
-	mat.emission_enabled = true
-	mat.emission = dragon_data.color_primary * 0.3
-	mat.emission_energy_multiplier = 0.4
+	var built := ModelFactory.build_dragon_model(dragon_data)
+	for child in built.get_children():
+		built.remove_child(child)
+		model.add_child(child)
+	built.queue_free()
 
-	var mat2 := StandardMaterial3D.new()
-	mat2.albedo_color = dragon_data.color_secondary
-
-	var s: float = dragon_data.model_scale
-
-	# Body
-	var body := CSGSphere3D.new()
-	body.radius = 0.6 * s
-	body.transform.origin = Vector3(0, 0.6, 0)
-	body.material = mat
-	model.add_child(body)
-
-	# Head
-	var head := CSGSphere3D.new()
-	head.radius = 0.35 * s
-	head.transform.origin = Vector3(0.5, 1.0, 0) * s
-	head.material = mat
-	model.add_child(head)
-
-	# Snout
-	var snout := CSGBox3D.new()
-	snout.size = Vector3(0.3, 0.15, 0.2) * s
-	snout.transform.origin = Vector3(0.8, 0.9, 0) * s
-	snout.material = mat
-	model.add_child(snout)
-
-	# Wings
-	for side in [-1, 1]:
-		var wing := CSGBox3D.new()
-		wing.size = Vector3(0.08, 0.6, 1.0) * s
-		wing.transform.origin = Vector3(-0.1, 1.0, 0.6 * side) * s
-		wing.rotation_degrees = Vector3(0, 0, -15 * side)
-		wing.material = mat2
-		model.add_child(wing)
-
-	# Tail
-	var tail := CSGCylinder3D.new()
-	tail.radius = 0.1 * s
-	tail.height = 1.0 * s
-	tail.transform.origin = Vector3(-0.7, 0.4, 0) * s
-	tail.rotation_degrees = Vector3(0, 0, 70)
-	tail.material = mat
-	model.add_child(tail)
-
-	# Eyes (glowing)
-	var eye_mat := StandardMaterial3D.new()
-	eye_mat.albedo_color = Color(1, 0.9, 0.3)
-	eye_mat.emission_enabled = true
-	eye_mat.emission = Color(1, 0.8, 0.2)
-	eye_mat.emission_energy_multiplier = 1.5
-	for side in [-1, 1]:
-		var eye := CSGSphere3D.new()
-		eye.radius = 0.06 * s
-		eye.transform.origin = Vector3(0.7, 1.1, 0.12 * side) * s
-		eye.material = eye_mat
-		model.add_child(eye)
-
-	# Element aura (subtle glow underneath)
-	var aura := CSGCylinder3D.new()
-	aura.radius = 0.8 * s
-	aura.height = 0.05
-	aura.transform.origin = Vector3(0, 0.02, 0)
-	var aura_mat := StandardMaterial3D.new()
-	aura_mat.albedo_color = Color(dragon_data.color_primary, 0.3)
-	aura_mat.emission_enabled = true
-	aura_mat.emission = dragon_data.color_primary
-	aura_mat.emission_energy_multiplier = 0.8
-	aura_mat.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA
-	aura.material = aura_mat
-	model.add_child(aura)
+	# Element aura particles instead of flat disc
+	ModelFactory.add_dragon_aura(model, dragon_data.color_primary, dragon_data.model_scale)
