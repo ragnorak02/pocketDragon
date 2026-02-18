@@ -1,5 +1,6 @@
 extends Control
 ## Starter dragon selection screen. Pick 1 of 3 dragons.
+const MF = preload("res://utils/model_factory.gd")
 
 const STARTER_PATHS := [
 	"res://data/dragons/fire_drake.tres",
@@ -142,8 +143,8 @@ func _build_card(data: DragonData, index: int) -> PanelContainer:
 	return card
 
 func _create_dragon_preview(data: DragonData) -> Node3D:
-	var root := ModelFactory.build_dragon_model(data)
-	ModelFactory.add_dragon_aura(root, data.color_primary, data.model_scale)
+	var root := MF.build_dragon_model(data)
+	MF.add_dragon_aura(root, data.color_primary, data.model_scale)
 
 	# Rotate slowly
 	var rotate_script := GDScript.new()

@@ -1,5 +1,6 @@
 extends Area3D
 ## Portal that triggers a zone transition when the player enters it.
+const MF = preload("res://utils/model_factory.gd")
 
 var target_zone_path: String = ""
 var portal_label: String = "Unknown"
@@ -18,7 +19,7 @@ func _ready() -> void:
 
 func _build_visual() -> void:
 	# Glowing pillar pair with toon shader
-	var pillar_mat := ModelFactory.make_toon_material(
+	var pillar_mat := MF.make_toon_material(
 		Color(0.3, 0.5, 0.8),
 		Color(0.5, 0.7, 1.0),
 		0.5,
@@ -35,7 +36,7 @@ func _build_visual() -> void:
 		add_child(pillar)
 
 	# Pillar top orbs
-	var orb_mat := ModelFactory.make_toon_material(
+	var orb_mat := MF.make_toon_material(
 		Color(0.5, 0.7, 1.0),
 		Color(0.7, 0.9, 1.0),
 		0.4,

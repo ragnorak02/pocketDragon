@@ -1,5 +1,6 @@
 extends CharacterBody3D
 ## Base NPC entity. Stands in place, detects nearby player, can be interacted with.
+const MF = preload("res://utils/model_factory.gd")
 
 @export var npc_data: NPCData = null
 
@@ -46,11 +47,11 @@ func _build_model() -> void:
 	for child in model.get_children():
 		child.queue_free()
 
-	var built := ModelFactory.build_npc_model(npc_data, true)
+	var built := MF.build_npc_model(npc_data, true)
 	for child in built.get_children():
 		built.remove_child(child)
 		model.add_child(child)
 	built.queue_free()
 
 	# Add subtle idle sway
-	ModelFactory.add_idle_bob(model, 0.02, 1.5)
+	MF.add_idle_bob(model, 0.02, 1.5)

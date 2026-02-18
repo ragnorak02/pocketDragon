@@ -1,5 +1,6 @@
 extends Node3D
 ## Main overworld scene. Loads zones from ZoneData, persists during battle transitions.
+const MF = preload("res://utils/model_factory.gd")
 
 @onready var camera: Camera3D = $IsometricCamera
 @onready var player: CharacterBody3D = $Player
@@ -105,7 +106,7 @@ func _spawn_decorations() -> void:
 	if not current_zone:
 		return
 
-	var trunk_mat := ModelFactory.make_toon_material(
+	var trunk_mat := MF.make_toon_material(
 		Color(0.35, 0.22, 0.12),
 		Color(0.5, 0.35, 0.2),
 		0.25

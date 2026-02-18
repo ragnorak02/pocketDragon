@@ -1,5 +1,6 @@
 extends Node3D
 ## Battle arena visual layer. Communicates with BattleManager via EventBus.
+const MF = preload("res://utils/model_factory.gd")
 
 @onready var battle_camera: Camera3D = $BattleCamera
 @onready var player_marker: Node3D = $PlayerMarker
@@ -117,14 +118,14 @@ func _spawn_enemy_model() -> void:
 	add_child(_enemy_model)
 
 func _create_dragon_model(data) -> Node3D:
-	var root := ModelFactory.build_dragon_model(data, 1.5)
-	ModelFactory.add_dragon_aura(root, data.color_primary, data.model_scale * 1.5)
-	ModelFactory.add_idle_bob(root, 0.06, 1.8)
+	var root := MF.build_dragon_model(data, 1.5)
+	MF.add_dragon_aura(root, data.color_primary, data.model_scale * 1.5)
+	MF.add_idle_bob(root, 0.06, 1.8)
 	return root
 
 func _create_enemy_model(data: EnemyData) -> Node3D:
-	var root := ModelFactory.build_enemy_model(data, 1.5)
-	ModelFactory.add_idle_bob(root, 0.04, 2.0)
+	var root := MF.build_enemy_model(data, 1.5)
+	MF.add_idle_bob(root, 0.04, 2.0)
 	return root
 
 func _on_battle_state_changed(_old: StringName, new_state: StringName) -> void:

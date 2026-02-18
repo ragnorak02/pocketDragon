@@ -1,5 +1,6 @@
 extends CharacterBody3D
 ## Wild dragon entity for overworld. Rarer, visually distinct, capturable.
+const MF = preload("res://utils/model_factory.gd")
 
 @export var dragon_data: DragonData = null
 @export var patrol_radius: float = 6.0
@@ -81,11 +82,11 @@ func _build_model() -> void:
 	for child in model.get_children():
 		child.queue_free()
 
-	var built := ModelFactory.build_dragon_model(dragon_data)
+	var built := MF.build_dragon_model(dragon_data)
 	for child in built.get_children():
 		built.remove_child(child)
 		model.add_child(child)
 	built.queue_free()
 
 	# Element aura particles instead of flat disc
-	ModelFactory.add_dragon_aura(model, dragon_data.color_primary, dragon_data.model_scale)
+	MF.add_dragon_aura(model, dragon_data.color_primary, dragon_data.model_scale)

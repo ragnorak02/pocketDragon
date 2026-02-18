@@ -1,5 +1,6 @@
 extends CharacterBody3D
 ## Base enemy entity for overworld. Patrols, detects player, triggers battle.
+const MF = preload("res://utils/model_factory.gd")
 
 @export var enemy_data: EnemyData = null
 @export var patrol_radius: float = 4.0
@@ -99,11 +100,11 @@ func _build_model() -> void:
 	for child in model.get_children():
 		child.queue_free()
 
-	var built := ModelFactory.build_enemy_model(enemy_data)
+	var built := MF.build_enemy_model(enemy_data)
 	for child in built.get_children():
 		built.remove_child(child)
 		model.add_child(child)
 	built.queue_free()
 
 	# Add idle animation
-	ModelFactory.add_idle_bob(model, 0.03, 2.5)
+	MF.add_idle_bob(model, 0.03, 2.5)
