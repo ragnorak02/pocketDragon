@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "gameId": "pocketdragon",
   "title": "Dragon League",
-  "lastUpdated": "2026-02-18T00:00:00Z",
+  "lastUpdated": "2026-02-19T00:00:00Z",
   "health": {
     "progressPercent": 15,
     "buildVersion": "0.1.0",
@@ -15,7 +15,7 @@
     "graphicsType": "3D"
   },
   "features": {
-    "controllerSupport": "missing",
+    "controllerSupport": "partial",
     "achievementsSystem": "missing",
     "testScripts": "partial",
     "saveSystem": "missing",
@@ -25,7 +25,7 @@
   },
   "milestones": {
     "firstGraphicsPass": true,
-    "controllerIntegration": false,
+    "controllerIntegration": true,
     "coreGameplayLoop": true,
     "verticalSlice": false,
     "contentComplete": false,
@@ -33,7 +33,7 @@
   },
   "testing": {
     "testCommand": "tests/run-tests.bat",
-    "lastRunAt": "2026-02-18T20:07:59Z",
+    "lastRunAt": "2026-02-19T15:28:45Z",
     "status": "pass",
     "notes": "116/116 tests passing — TypeChart, DragonData, DragonInstance, AbilityData, EnemyData, SoulGemData, scenes, assets, perf"
   },

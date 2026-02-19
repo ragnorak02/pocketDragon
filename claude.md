@@ -42,10 +42,15 @@ scenes/
 - `StateMachine` / `State` — Generic FSM (base class with pass stubs)
 
 ### Input Map
-- WASD — Movement (isometric-rotated 45 deg)
-- E — Interact
-- Escape — Menu/Pause
-- F3 — Debug overlay toggle
+| Action | Keyboard | Xbox Controller |
+|--------|----------|-----------------|
+| Movement | WASD (isometric-rotated 45 deg) | D-pad / Left stick |
+| Interact | E | A button |
+| Menu/Pause | Escape | Start |
+| Confirm (UI) | Enter / Space | A button |
+| Cancel (UI) | Escape | B button |
+| UI Navigate | Arrow keys | D-pad / Left stick |
+| Debug overlay | F3 | — |
 
 ## Coding Conventions
 - GDScript with type hints where practical
@@ -58,7 +63,7 @@ scenes/
 ## Current Repo State (Auto-Detected)
 
 - **Graphics Pass V1 done:** 11 shaders (toon, jelly wobble, terrain, wind sway, rock, cobblestone, arena runes, dark fantasy BGs, portal swirl), 3 CPUParticles3D systems, idle bob animations — all CSG models enhanced (placeholder_v1, swap-ready)
-- **ModelFactory utility:** `scenes/battle/model_factory.gd` — shared dragon/enemy model builder (DRYed 3x duplication)
+- **ModelFactory utility:** `utils/model_factory.gd` — shared dragon/enemy/NPC model builder (no `class_name`, consumers use `const MF = preload(...)`)
 - **Zone system:** 3 zones (meadow, forest, cave) with portal transitions, per-zone spawn data
 - **NPC / dialog system:** 4 NPCs with dialog box, interaction prompts via EventBus
 - **All UI is procedural code:** Battle HUD, menus, and HUD built entirely in GDScript with hardcoded pixel positions (no .tscn UI)
@@ -67,6 +72,7 @@ scenes/
 - **Save system incomplete:** `serialize()`/`deserialize()` methods exist on DragonInstance but no file I/O is wired up
 - **CUTSCENE state unused:** Defined in GameManager enum but no scene or logic references it
 - **No audio:** Zero sound effects or music files
+- **Xbox controller support (partial):** D-pad/stick + A/B/Start mapped for all input actions; starter selection has D-pad card navigation; main menu uses Godot focus system with joypad bindings
 - **Achievements defined but not wired:** 16 achievements in `achievements.json`, integration map in `achievements_integration.json`
 - **Prototype stage (v0.1):** Debug overlay self-labels as "Dragon League v0.1"
 
@@ -94,7 +100,7 @@ godot --path .
 | Ability data | `data/abilities/*.tres` |
 | Zone data | `data/zones/*.tres` |
 | NPC data | `data/npcs/*.tres` |
-| Model factory | `scenes/battle/model_factory.gd` |
+| Model factory | `utils/model_factory.gd` |
 | Test runner | `tests/run_tests.gd` |
 | Test results | `tests/test-results.json` |
 | Achievements | `achievements.json` |

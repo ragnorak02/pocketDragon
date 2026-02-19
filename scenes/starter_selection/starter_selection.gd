@@ -57,7 +57,6 @@ func _build_card(data: DragonData, index: int) -> PanelContainer:
 	card.add_theme_stylebox_override("panel", style)
 
 	var vbox := VBoxContainer.new()
-	vbox.theme_override_constants = {}
 	vbox.add_theme_constant_override("separation", 8)
 
 	# Dragon name
@@ -153,6 +152,30 @@ func _create_dragon_preview(data: DragonData) -> Node3D:
 	root.set_script(rotate_script)
 
 	return root
+
+func _input(event: InputEvent) -> void:
+	if event.is_action_pressed("ui_left"):
+		_navigate_card(-1)
+		get_viewport().set_input_as_handled()
+	elif event.is_action_pressed("ui_right"):
+		_navigate_card(1)
+		get_viewport().set_input_as_handled()
+	elif event.is_action_pressed("ui_accept"):
+		if selected_index >= 0:
+			_on_confirm()
+			get_viewport().set_input_as_handled()
+		elif starter_data.size() > 0:
+			_on_card_selected(0)
+			get_viewport().set_input_as_handled()
+
+func _navigate_card(direction: int) -> void:
+	if starter_data.size() == 0:
+		return
+	if selected_index < 0:
+		_on_card_selected(0)
+	else:
+		var new_index := wrapi(selected_index + direction, 0, starter_data.size())
+		_on_card_selected(new_index)
 
 func _on_card_selected(index: int) -> void:
 	selected_index = index

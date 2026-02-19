@@ -52,8 +52,6 @@
 
 ## Planned / Open Questions
 
-- World map / zone system (currently one flat overworld)
-- NPC / dialog system (EventBus has `dialog_requested` signal, unused)
 - Inventory / items beyond soul gems
 - Evolution / breeding mechanics
 - Multiplayer / trading
@@ -79,3 +77,11 @@
 - Animation cycles added for: all entities (idle bob), slime (jelly wobble), trees (wind sway)
 - Techniques used: Shader (11 files), Particle (3 systems), Material, Programmatic
 - Asset stage: placeholder_v1 (swap-ready for final art)
+
+### Controller Support + Dragon Card Fix — 2026-02-19
+- Fixed starter selection dragon cards not rendering (removed stale `class_name ModelFactory` from `utils/model_factory.gd`, removed invalid `theme_override_constants` property)
+- Added Xbox controller bindings to all input actions in `project.godot` (D-pad, left stick, A/B/Start)
+- Added new `ui_cancel`, `ui_up/down/left/right` input actions with keyboard + joypad events
+- Added D-pad left/right card navigation + A button confirm to starter selection screen
+- Main menu already works via Godot focus system — just needed the joypad bindings
+- Controller support status: partial (menus + starter selection + overworld movement)

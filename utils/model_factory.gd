@@ -1,4 +1,3 @@
-class_name ModelFactory
 ## Shared factory for building entity CSG models with toon shader materials.
 ## Centralizes dragon, enemy, and NPC model construction that was previously duplicated.
 
