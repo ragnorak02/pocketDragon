@@ -1,0 +1,150 @@
+{
+  "schemaVersion": 1,
+  "gameId": "pocketdragon",
+  "achievements": [
+    {
+      "id": "first_dragon",
+      "name": "Dragon Tamer",
+      "description": "Capture your first wild dragon",
+      "category": "capture",
+      "icon": "dragon",
+      "hidden": false,
+      "criteria": { "type": "capture_count", "target": 1 }
+    },
+    {
+      "id": "five_dragons",
+      "name": "Full Party",
+      "description": "Have 5 dragons in your party at once",
+      "category": "capture",
+      "icon": "party",
+      "hidden": false,
+      "criteria": { "type": "party_size", "target": 5 }
+    },
+    {
+      "id": "collector_bronze",
+      "name": "Budding Collector",
+      "description": "Register 3 unique dragon species in your collection",
+      "category": "collection",
+      "icon": "book",
+      "hidden": false,
+      "criteria": { "type": "unique_species", "target": 3 }
+    },
+    {
+      "id": "first_victory",
+      "name": "First Blood",
+      "description": "Win your first battle",
+      "category": "battle",
+      "icon": "sword",
+      "hidden": false,
+      "criteria": { "type": "battle_wins", "target": 1 }
+    },
+    {
+      "id": "ten_victories",
+      "name": "Battle Hardened",
+      "description": "Win 10 battles",
+      "category": "battle",
+      "icon": "sword",
+      "hidden": false,
+      "criteria": { "type": "battle_wins", "target": 10 }
+    },
+    {
+      "id": "fifty_victories",
+      "name": "Arena Champion",
+      "description": "Win 50 battles",
+      "category": "battle",
+      "icon": "trophy",
+      "hidden": false,
+      "criteria": { "type": "battle_wins", "target": 50 }
+    },
+    {
+      "id": "super_effective",
+      "name": "Elemental Mastery",
+      "description": "Land a super effective hit",
+      "category": "battle",
+      "icon": "fire",
+      "hidden": false,
+      "criteria": { "type": "super_effective_hits", "target": 1 }
+    },
+    {
+      "id": "level_10",
+      "name": "Growing Strong",
+      "description": "Level a dragon to level 10",
+      "category": "progression",
+      "icon": "star",
+      "hidden": false,
+      "criteria": { "type": "dragon_level", "target": 10 }
+    },
+    {
+      "id": "level_50",
+      "name": "Veteran Dragon",
+      "description": "Level a dragon to level 50",
+      "category": "progression",
+      "icon": "star",
+      "hidden": false,
+      "criteria": { "type": "dragon_level", "target": 50 }
+    },
+    {
+      "id": "level_100",
+      "name": "Apex Predator",
+      "description": "Level a dragon to the maximum level 100",
+      "category": "progression",
+      "icon": "crown",
+      "hidden": true,
+      "criteria": { "type": "dragon_level", "target": 100 }
+    },
+    {
+      "id": "starter_chosen",
+      "name": "The Journey Begins",
+      "description": "Choose your starter dragon",
+      "category": "progression",
+      "icon": "egg",
+      "hidden": false,
+      "criteria": { "type": "event", "event": "starter_selected" }
+    },
+    {
+      "id": "explore_forest",
+      "name": "Into the Woods",
+      "description": "Enter the Forest zone",
+      "category": "exploration",
+      "icon": "tree",
+      "hidden": false,
+      "criteria": { "type": "zone_visited", "zone": "forest" }
+    },
+    {
+      "id": "explore_cave",
+      "name": "Spelunker",
+      "description": "Enter the Cave zone",
+      "category": "exploration",
+      "icon": "cave",
+      "hidden": false,
+      "criteria": { "type": "zone_visited", "zone": "cave" }
+    },
+    {
+      "id": "rare_gem_used",
+      "name": "Precious Stones",
+      "description": "Use a Rare soul gem to capture a dragon",
+      "category": "capture",
+      "icon": "gem",
+      "hidden": false,
+      "criteria": { "type": "gem_tier_used", "target": 3 }
+    },
+    {
+      "id": "no_damage_win",
+      "name": "Untouchable",
+      "description": "Win a battle without taking any damage",
+      "category": "battle",
+      "icon": "shield",
+      "hidden": true,
+      "criteria": { "type": "flawless_victory", "target": 1 }
+    },
+    {
+      "id": "flee_success",
+      "name": "Strategic Retreat",
+      "description": "Successfully flee from a battle",
+      "category": "battle",
+      "icon": "boot",
+      "hidden": false,
+      "criteria": { "type": "flee_count", "target": 1 }
+    }
+  ]
+}

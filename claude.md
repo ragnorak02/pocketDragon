@@ -57,15 +57,17 @@ scenes/
 
 ## Current Repo State (Auto-Detected)
 
-- **Placeholder 3D models:** All dragon/enemy visuals are CSG primitives — no real meshes or art assets exist
-- **Empty `assets/` directory:** No textures, audio, models, or VFX have been added yet
+- **Graphics Pass V1 done:** 11 shaders (toon, jelly wobble, terrain, wind sway, rock, cobblestone, arena runes, dark fantasy BGs, portal swirl), 3 CPUParticles3D systems, idle bob animations — all CSG models enhanced (placeholder_v1, swap-ready)
+- **ModelFactory utility:** `scenes/battle/model_factory.gd` — shared dragon/enemy model builder (DRYed 3x duplication)
+- **Zone system:** 3 zones (meadow, forest, cave) with portal transitions, per-zone spawn data
+- **NPC / dialog system:** 4 NPCs with dialog box, interaction prompts via EventBus
 - **All UI is procedural code:** Battle HUD, menus, and HUD built entirely in GDScript with hardcoded pixel positions (no .tscn UI)
+- **Test suite:** 116/116 tests passing — custom headless runner (`tests/run_tests.gd`), covers TypeChart, DragonData, DragonInstance, abilities, enemies, soul gems, scenes, assets, perf
 - **State base class is stubs:** `state.gd` has empty `pass` methods for enter/exit/update/physics_update
 - **Save system incomplete:** `serialize()`/`deserialize()` methods exist on DragonInstance but no file I/O is wired up
 - **CUTSCENE state unused:** Defined in GameManager enum but no scene or logic references it
-- **No test suite:** No test directory, no GUT/GdUnit setup, no test files
-- **Hardcoded spawns:** Overworld enemy/dragon positions are hardcoded Vector3 arrays, no map data system
 - **No audio:** Zero sound effects or music files
+- **Achievements defined but not wired:** 16 achievements in `achievements.json`, integration map in `achievements_integration.json`
 - **Prototype stage (v0.1):** Debug overlay self-labels as "Dragon League v0.1"
 
 ## Build & Run
@@ -90,3 +92,10 @@ godot --path .
 | Player movement | `entities/player/player.gd` |
 | Dragon species data | `data/dragons/*.tres` |
 | Ability data | `data/abilities/*.tres` |
+| Zone data | `data/zones/*.tres` |
+| NPC data | `data/npcs/*.tres` |
+| Model factory | `scenes/battle/model_factory.gd` |
+| Test runner | `tests/run_tests.gd` |
+| Test results | `tests/test-results.json` |
+| Achievements | `achievements.json` |
+| Achievement hooks | `achievements_integration.json` |

@@ -6,18 +6,18 @@
   "health": {
     "progressPercent": 15,
     "buildVersion": "0.1.0",
-    "assetStage": "placeholder"
+    "assetStage": "placeholder_v1"
   },
   "tech": {
     "engine": "Godot",
     "engineVersion": "4.4",
     "languages": ["GDScript"],
-    "graphicsType": "2D"
+    "graphicsType": "3D"
   },
   "features": {
     "controllerSupport": "missing",
     "achievementsSystem": "missing",
-    "testScripts": "missing",
+    "testScripts": "partial",
     "saveSystem": "missing",
     "settingsMenu": "missing",
     "audio": "missing",
@@ -33,9 +33,9 @@
   },
   "testing": {
     "testCommand": "tests/run-tests.bat",
-    "lastRunAt": null,
-    "status": "unknown",
-    "notes": "Test runner exists"
+    "lastRunAt": "2026-02-18T20:07:59Z",
+    "status": "pass",
+    "notes": "116/116 tests passing — TypeChart, DragonData, DragonInstance, AbilityData, EnemyData, SoulGemData, scenes, assets, perf"
   },
   "links": {
     "repo": null,

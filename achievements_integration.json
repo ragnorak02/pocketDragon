@@ -1,0 +1,128 @@
+{
+  "schemaVersion": 1,
+  "gameId": "pocketdragon",
+  "integrationStatus": "not_implemented",
+  "engine": "Godot 4.4",
+  "description": "Maps each achievement trigger to the game system and signal that should fire it.",
+  "signalBus": "EventBus (autoload/event_bus.gd)",
+  "triggers": [
+    {
+      "achievementId": "first_dragon",
+      "system": "PartyManager",
+      "signal": "dragon_captured",
+      "file": "autoload/party_manager.gd",
+      "hook": "add_dragon() — after successful capture, check total captures >= 1"
+    },
+    {
+      "achievementId": "five_dragons",
+      "system": "PartyManager",
+      "signal": "dragon_captured",
+      "file": "autoload/party_manager.gd",
+      "hook": "add_dragon() — after add, check party.size() == MAX_PARTY_SIZE"
+    },
+    {
+      "achievementId": "collector_bronze",
+      "system": "PartyManager",
+      "signal": "dragon_captured",
+      "file": "autoload/party_manager.gd",
+      "hook": "add_to_collection() — check unique_species_count >= 3"
+    },
+    {
+      "achievementId": "first_victory",
+      "system": "BattleManager",
+      "signal": "battle_ended",
+      "file": "autoload/battle_manager.gd",
+      "hook": "_on_battle_victory() — increment win counter, check >= 1"
+    },
+    {
+      "achievementId": "ten_victories",
+      "system": "BattleManager",
+      "signal": "battle_ended",
+      "file": "autoload/battle_manager.gd",
+      "hook": "_on_battle_victory() — check win counter >= 10"
+    },
+    {
+      "achievementId": "fifty_victories",
+      "system": "BattleManager",
+      "signal": "battle_ended",
+      "file": "autoload/battle_manager.gd",
+      "hook": "_on_battle_victory() — check win counter >= 50"
+    },
+    {
+      "achievementId": "super_effective",
+      "system": "BattleManager",
+      "signal": "damage_dealt",
+      "file": "autoload/battle_manager.gd",
+      "hook": "_calculate_damage() — when type_mult >= 2.0, fire achievement"
+    },
+    {
+      "achievementId": "level_10",
+      "system": "DragonInstance",
+      "signal": "dragon_leveled_up",
+      "file": "data/dragons/dragon_instance.gd",
+      "hook": "add_xp() — on level up, check new_level >= 10"
+    },
+    {
+      "achievementId": "level_50",
+      "system": "DragonInstance",
+      "signal": "dragon_leveled_up",
+      "file": "data/dragons/dragon_instance.gd",
+      "hook": "add_xp() — on level up, check new_level >= 50"
+    },
+    {
+      "achievementId": "level_100",
+      "system": "DragonInstance",
+      "signal": "dragon_leveled_up",
+      "file": "data/dragons/dragon_instance.gd",
+      "hook": "add_xp() — on level up, check new_level >= 100"
+    },
+    {
+      "achievementId": "starter_chosen",
+      "system": "GameManager",
+      "signal": "game_state_changed",
+      "file": "scenes/starter_selection/starter_selection.gd",
+      "hook": "_on_starter_selected() — fire when player picks a starter"
+    },
+    {
+      "achievementId": "explore_forest",
+      "system": "Overworld",
+      "signal": "zone_entered",
+      "file": "scenes/overworld/overworld.gd",
+      "hook": "_on_zone_portal_entered() — check zone_id == 'forest'"
+    },
+    {
+      "achievementId": "explore_cave",
+      "system": "Overworld",
+      "signal": "zone_entered",
+      "file": "scenes/overworld/overworld.gd",
+      "hook": "_on_zone_portal_entered() — check zone_id == 'cave'"
+    },
+    {
+      "achievementId": "rare_gem_used",
+      "system": "BattleManager",
+      "signal": "capture_attempted",
+      "file": "autoload/battle_manager.gd",
+      "hook": "_attempt_capture() — on success, check gem.tier >= 3"
+    },
+    {
+      "achievementId": "no_damage_win",
+      "system": "BattleManager",
+      "signal": "battle_ended",
+      "file": "autoload/battle_manager.gd",
+      "hook": "_on_battle_victory() — track damage_taken_this_battle == 0"
+    },
+    {
+      "achievementId": "flee_success",
+      "system": "BattleManager",
+      "signal": "battle_fled",
+      "file": "autoload/battle_manager.gd",
+      "hook": "_attempt_flee() — on success, fire achievement"
+    }
+  ],
+  "implementationNotes": {
+    "storageFile": "user://achievements.save",
+    "suggestedAutoload": "AchievementManager",
+    "dataFlow": "Game systems emit signals via EventBus -> AchievementManager listens -> checks criteria -> unlocks + persists",
+    "uiHook": "Toast notification via EventBus.achievement_unlocked signal -> HUD displays popup"
+  }
+}
