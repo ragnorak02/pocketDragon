@@ -1,0 +1,44 @@
+{
+  "schemaVersion": 1,
+  "gameId": "pocketdragon",
+  "title": "Dragon League",
+  "lastUpdated": "2026-02-18T00:00:00Z",
+  "health": {
+    "progressPercent": 15,
+    "buildVersion": "0.1.0",
+    "assetStage": "placeholder"
+  },
+  "tech": {
+    "engine": "Godot",
+    "engineVersion": "4.4",
+    "languages": ["GDScript"],
+    "graphicsType": "2D"
+  },
+  "features": {
+    "controllerSupport": "missing",
+    "achievementsSystem": "missing",
+    "testScripts": "missing",
+    "saveSystem": "missing",
+    "settingsMenu": "missing",
+    "audio": "missing",
+    "vfx": "partial"
+  },
+  "milestones": {
+    "firstGraphicsPass": true,
+    "controllerIntegration": false,
+    "coreGameplayLoop": true,
+    "verticalSlice": false,
+    "contentComplete": false,
+    "productionReady": false
+  },
+  "testing": {
+    "testCommand": "tests/run-tests.bat",
+    "lastRunAt": null,
+    "status": "unknown",
+    "notes": "Test runner exists"
+  },
+  "links": {
+    "repo": null,
+    "launcherId": "pocketdragon"
+  }
+}
